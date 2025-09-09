@@ -885,11 +885,6 @@ p {
     padding: 0 1rem;
   }
 
-  .hero-description{
-    text-align: justify;
-    font-size: 1rem;
-  }
-
   .hero-subtitle{
     font-size: 1.2rem;
   }
@@ -997,5 +992,14 @@ p {
 
   .nav-logo{
     font-size: 1rem; /* Menyesuaikan ukuran font untuk logo */
+  }
+
+  .hero-description{
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .about-description{
+    text-align: justify;
   }
 }
