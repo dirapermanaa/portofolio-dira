@@ -153,6 +153,9 @@ function initializeModal() {
     const modalImage = document.getElementById("modal-image")
     const closeModal = document.getElementById("close-modal")
 
+    // Ensure modal is hidden on page load
+    modal.style.display = "none"
+
     // Open modal on "View Project" button click
     const portfolioLinks = document.querySelectorAll(".portfolio-link")
     portfolioLinks.forEach(link => {
@@ -161,6 +164,8 @@ function initializeModal() {
             const imageSrc = this.getAttribute("data-image")
             modalImage.src = imageSrc
             modal.style.display = "block"
+            // Prevent page jump by removing focus from link
+            this.blur()
         })
     })
 
@@ -211,7 +216,6 @@ function initializeContactForm() {
     })
 }
 
-// Smooth Scroll
 function initializeSmoothScroll() {
     const links = document.querySelectorAll('a[href^="#"]')
 
@@ -232,6 +236,15 @@ function initializeSmoothScroll() {
             }
         })
     })
+
+    // Prevent automatic scroll on page load if URL has hash
+    if (window.location.hash) {
+        // Scroll to top on load to prevent jumping to section
+        window.scrollTo(0, 0)
+
+        // Remove hash from URL to prevent browser default scroll
+        history.replaceState(null, document.title, window.location.pathname + window.location.search)
+    }
 }
 
 // Utility Functions

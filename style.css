@@ -955,18 +955,24 @@ p {
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    overflow: hidden; /* Disable scroll to allow vertical centering */
     background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    display: flex; /* Ensure flex display */
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 5%;
+    animation: fadeInModal 0.3s ease forwards;
 }
 
 .modal-content {
     margin: auto;
     display: block;
-    max-width: 100%;
-    max-height: 100%;
-    padding: 2rem;
+    max-width: 80%;
+    max-height: 80%;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
 }
 
 .close {
@@ -977,6 +983,45 @@ p {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    z-index: 1100;
+}
+
+/* Animasi fade in modal */
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive modal untuk mobile */
+@media (max-width: 480px) {
+    .modal {
+        display: flex; /* pastikan modal menggunakan flex */
+        align-items: flex-start; /* vertikal turun sedikit */
+        justify-content: center; /* horizontal center */
+        padding-top: 5%;
+        overflow: hidden; /* disable scroll */
+    }
+
+    .modal-content {
+        max-width: 95%;
+        max-height: 70%;
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin: 5% auto 0 auto; /* turun ke bawah */
+        margin-top: 30%;
+    }
+
+    .close {
+        top: 5rem;
+        right: 15px;
+        font-size: 30px;
+    }
 }
 
 /* Menambahkan aturan untuk slider mobile */
@@ -1001,5 +1046,8 @@ p {
 
   .about-description{
     text-align: justify;
+    text-justify: inter-word;
+    word-spacing: 0;
+    line-height: 1.8;
   }
 }
