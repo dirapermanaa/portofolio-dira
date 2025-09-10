@@ -152,6 +152,7 @@ function initializeModal() {
     const modal = document.getElementById("image-modal")
     const modalImage = document.getElementById("modal-image")
     const closeModal = document.getElementById("close-modal")
+    const body = document.body
 
     // Ensure modal is hidden on page load
     modal.style.display = "none"
@@ -164,6 +165,7 @@ function initializeModal() {
             const imageSrc = this.getAttribute("data-image")
             modalImage.src = imageSrc
             modal.style.display = "block"
+            body.style.overflow = "hidden" // Disable scroll on body when modal is open
             // Prevent page jump by removing focus from link
             this.blur()
         })
@@ -172,12 +174,14 @@ function initializeModal() {
     // Close modal
     closeModal.addEventListener("click", () => {
         modal.style.display = "none"
+        body.style.overflow = "" // Enable scroll on body when modal is closed
     })
 
     // Close modal when clicking outside the image
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
             modal.style.display = "none"
+            body.style.overflow = "" // Enable scroll on body when modal is closed
         }
     })
 }

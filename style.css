@@ -955,7 +955,7 @@ p {
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: hidden; /* Disable scroll to allow vertical centering */
+    overflow: hidden; /* Disable scroll */
     background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
     display: flex; /* Ensure flex display */
     justify-content: center;
