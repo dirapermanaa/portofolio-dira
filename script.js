@@ -173,6 +173,13 @@ function initializeModal() {
     closeModal.addEventListener("click", () => {
         modal.style.display = "none"
     })
+
+    // Close modal when clicking outside the image
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none"
+        }
+    })
 }
 
 // Contact Form
