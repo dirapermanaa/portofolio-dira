@@ -1130,11 +1130,15 @@ audio {
 /* Responsive modal untuk mobile */
 @media (max-width: 480px) {
     .modal {
-        display: flex; /* pastikan modal menggunakan flex */
+        /* display: flex;  Removed to prevent modal showing by default on mobile */
         align-items: flex-start; /* vertikal turun sedikit */
         justify-content: center; /* horizontal center */
         padding-top: 5%;
         overflow: hidden; /* disable scroll */
+    }
+
+    .modal.show {
+        display: flex; /* Show modal when .show class added */
     }
 
     .modal-content {

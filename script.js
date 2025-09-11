@@ -308,7 +308,7 @@ function initializeContactForm() {
 
         // Get form data
         const formData = new FormData(this)
-        const name = formData.get("name")
+        const name = formData.get("nama")
         const email = formData.get("email")
         const subject = formData.get("subject")
         const message = formData.get("message")
@@ -324,19 +324,32 @@ function initializeContactForm() {
             return
         }
 
-        // Simulate form submission
+        // Send data to Google Sheets via fetch
         const submitButton = this.querySelector(".submit-button")
         const originalText = submitButton.textContent
 
         submitButton.textContent = "Sending..."
         submitButton.disabled = true
 
-        setTimeout(() => {
-            showNotification("Thank you! Your message has been sent successfully.", "success")
-            contactForm.reset()
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                showNotification("Thank you! Pesan Anda Telah Berhasil Di Kirim. Kami akan segera menghubungi Anda.", "success")
+                contactForm.reset()
+            } else {
+                showNotification("Failed to send message. Please try again later.", "error")
+            }
             submitButton.textContent = originalText
             submitButton.disabled = false
-        }, 2000)
+        })
+        .catch(() => {
+            showNotification("Failed to send message. Please check your internet connection.", "error")
+            submitButton.textContent = originalText
+            submitButton.disabled = false
+        })
     })
 }
 
@@ -381,37 +394,81 @@ function showNotification(message, type) {
     // Create notification element
     const notification = document.createElement("div")
     notification.className = `notification ${type}`
-    notification.textContent = message
+
+    // Add icon based on type
+    const icon = document.createElement("span")
+    icon.className = "notification-icon"
+    icon.innerHTML = type === "success" ? "&#10004;" : "&#9888;" // checkmark or warning symbol
+    notification.appendChild(icon)
+
+    // Add message text
+    const messageSpan = document.createElement("span")
+    messageSpan.className = "notification-message"
+    messageSpan.textContent = message
+    notification.appendChild(messageSpan)
 
     // Style the notification
     notification.style.cssText = `
           position: fixed;
           top: 20px;
-          right: 20px;
+          left: 50%;
+          transform: translate(-50%, -100%);
           background-color: ${type === "success" ? "#28a745" : "#dc3545"};
           color: white;
           padding: 1rem 1.5rem;
-          border-radius: 5px;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          border-radius: 8px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.3);
           z-index: 10000;
-          transform: translateX(100%);
-          transition: transform 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-weight: 600;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+          min-width: 250px;
+          max-width: 350px;
       `
 
+    // Icon style
+    icon.style.cssText = `
+        font-size: 1.5rem;
+        line-height: 1;
+    `
+
+    // Message style
+    messageSpan.style.cssText = `
+        flex: 1;
+        font-size: 1rem;
+    `
+
+    // Append to body
     document.body.appendChild(notification)
 
     // Animate in
     setTimeout(() => {
-        notification.style.transform = "translateX(0)"
-    }, 100)
+        notification.style.transform = "translate(-50%, 0)"
+    }, 50)
 
-    // Remove after 5 seconds
-    setTimeout(() => {
-        notification.style.transform = "translateX(100%)"
+    // Remove on click
+    notification.addEventListener("click", () => {
+        notification.style.transform = "translate(-50%, -100%)"
         setTimeout(() => {
-            document.body.removeChild(notification)
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification)
+            }
         }, 300)
-    }, 5000)
+    })
+
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        notification.style.transform = "translate(-50%, -100%)"
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification)
+            }
+        }, 300)
+    }, 4000)
 }
 
 // Parallax Effect for Hero Section (Optional)
@@ -437,6 +494,7 @@ function throttle(func, wait) {
         timeout = setTimeout(later, wait)
     }
 }
+
 
 // Apply throttling to scroll events
 const throttledScrollHandler = throttle(() => {
@@ -477,3 +535,5 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 })
+
+
