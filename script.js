@@ -156,12 +156,16 @@ function initializeMusicControls() {
 
     // Map of song data attributes to actual file names
     const songMap = {
-        'blinding-lights': 'music/Line With a Hook.mp3',
-        'levitating': 'music/night changes.mp3',
-        'good-4-u': 'music/good-4-u.mp3',
-        'stay': 'music/stay.mp3',
-        'as-it-was': 'music/as-it-was.mp3',
-        'drivers-license': 'music/drivers-license.mp3'
+        'line-with-a-hook': 'music/Line With a Hook.mp3',
+        'one-direct': 'music/night changes.mp3',
+        'it-will-rain': 'music/It Will Rain.mp3',
+        'december': 'music/december.mp3',
+        'to-the-bone': 'music/to the bone.mp3',
+        'mangu': 'music/mangu.mp3',
+        'untuk-perempuan' : 'music/untuk perempuan.mp3',
+        'bergema-selamanya' : 'music/bergema sampai selamanya.mp3',
+        'monolog' : 'music/monolog.mp3',
+        'sempurna' : 'music/Sempurna.mp3',
     }
 
     playButtons.forEach((button) => {
