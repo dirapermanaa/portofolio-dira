@@ -159,14 +159,14 @@ function initializeMusicControls() {
         'line-with-a-hook': 'music/Line With a Hook.mp3',
         'one-direct': 'music/night changes.mp3',
         'blue-yungkai': 'music/blue yungkai.mp3',
-        'talking-to-the-moon': 'music/Talking to the moon.mp3',
+        'talking-to-the-moon': 'music/Talking To The Moon.mp3',
         'it-will-rain': 'music/It Will Rain.mp3',
         'december': 'music/december.mp3',
         'to-the-bone': 'music/to the bone.mp3',
-        'mangu': 'music/mangu.mp3',
-        'untuk-perempuan' : 'music/untuk perempuan.mp3',
+        'mangu': 'music/Mangu.mp3',
+        'untuk-perempuan' : 'music/Untuk Perempuan.mp3',
         'bergema-selamanya' : 'music/bergema sampai selamanya.mp3',
-        'monolog' : 'music/monolog.mp3',
+        'monolog' : 'music/Monolog.mp3',
         'sempurna' : 'music/Sempurna.mp3',
     }
 
