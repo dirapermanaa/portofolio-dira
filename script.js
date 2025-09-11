@@ -158,6 +158,8 @@ function initializeMusicControls() {
     const songMap = {
         'line-with-a-hook': 'music/Line With a Hook.mp3',
         'one-direct': 'music/night changes.mp3',
+        'blue-yungkai': 'music/blue yungkai.mp3',
+        'talking-to-the-moon': 'music/Talking to the moon.mp3',
         'it-will-rain': 'music/It Will Rain.mp3',
         'december': 'music/december.mp3',
         'to-the-bone': 'music/to the bone.mp3',
