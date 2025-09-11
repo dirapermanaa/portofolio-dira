@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeNavigation()
     initializeScrollAnimations()
     initializePortfolioFilter()
+    initializeMusicControls() // Initialize music controls
     initializeContactForm()
     initializeSmoothScroll()
     initializeModal() // Initialize modal functionality
@@ -143,6 +144,112 @@ function initializePortfolioFilter() {
                     }, 300)
                 }
             })
+        })
+    })
+}
+
+// Music Controls
+function initializeMusicControls() {
+    const playButtons = document.querySelectorAll(".play-btn")
+    let currentAudio = null
+    let currentButton = null
+
+    // Map of song data attributes to actual file names
+    const songMap = {
+        'blinding-lights': 'music/Line With a Hook.mp3',
+        'levitating': 'music/night changes.mp3',
+        'good-4-u': 'music/good-4-u.mp3',
+        'stay': 'music/stay.mp3',
+        'as-it-was': 'music/as-it-was.mp3',
+        'drivers-license': 'music/drivers-license.mp3'
+    }
+
+    playButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const songKey = this.getAttribute("data-song")
+            const icon = this.querySelector("i")
+
+            if (!songKey || !songMap[songKey]) {
+                showNotification("Music file not found for this song.", "error")
+                return
+            }
+
+            // If clicking the same button that's currently playing
+            if (currentAudio && currentButton === this) {
+                if (currentAudio.paused) {
+                    currentAudio.play()
+                    this.classList.add("playing")
+                    if (icon) {
+                        icon.classList.remove("fa-play")
+                        icon.classList.add("fa-pause")
+                    }
+                } else {
+                    currentAudio.pause()
+                    this.classList.remove("playing")
+                    if (icon) {
+                        icon.classList.remove("fa-pause")
+                        icon.classList.add("fa-play")
+                    }
+                }
+                return
+            }
+
+            // Stop current audio if playing
+            if (currentAudio) {
+                currentAudio.pause()
+                currentAudio.currentTime = 0
+                if (currentButton) {
+                    currentButton.classList.remove("playing")
+                    const currentIcon = currentButton.querySelector("i")
+                    if (currentIcon) {
+                        currentIcon.classList.remove("fa-pause")
+                        currentIcon.classList.add("fa-play")
+                    }
+                }
+            }
+
+            // Create new audio element
+            currentAudio = new Audio(songMap[songKey])
+            currentButton = this
+
+            // Set icon immediately
+            button.classList.add("playing")
+            if (icon) {
+                icon.classList.remove("fa-play")
+                icon.classList.add("fa-pause")
+            }
+
+            // Handle audio load error
+            currentAudio.addEventListener("error", function() {
+                showNotification("Error loading music file. Please check if the file exists.", "error")
+                currentAudio = null
+                currentButton = null
+                button.classList.remove("playing")
+                if (icon) {
+                    icon.classList.remove("fa-pause")
+                    icon.classList.add("fa-play")
+                }
+            })
+
+            // Handle successful load and play
+            currentAudio.addEventListener("canplaythrough", function() {
+                currentAudio.play()
+                // Icon already set
+            })
+
+            // Handle audio end
+            currentAudio.addEventListener("ended", function () {
+                button.classList.remove("playing")
+                if (icon) {
+                    icon.classList.remove("fa-pause")
+                    icon.classList.add("fa-play")
+                }
+                currentAudio = null
+                currentButton = null
+            })
+
+            // Load the audio
+            currentAudio.load()
         })
     })
 }
