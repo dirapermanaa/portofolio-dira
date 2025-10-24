@@ -168,6 +168,10 @@ function initializeMusicControls() {
         'bergema-selamanya' : 'music/bergema sampai selamanya.mp3',
         'monolog' : 'music/Monolog.mp3',
         'sempurna' : 'music/Sempurna.mp3',
+        'Otuan' : 'music/o tuan.mp3',
+        'tarot' : 'music/Feast - Tarot.mp3',
+        'everything' : 'music/Hindia - everything u are.mp3',
+        'stand' : 'music/Oasis - Stand By Me (Official Video) - OasisVEVO.mp3',
     }
 
     playButtons.forEach((button) => {
